@@ -78,7 +78,7 @@ for i in range(learncycles):
             else:
                 perceptron_dict[language].learn(vector,0)
 
-def classify_user_text(user_text):
+def classify_language(user_text):
     user_vector = get_letters_list(user_text)
     answers = []
     for language in perceptron_dict:
@@ -86,3 +86,16 @@ def classify_user_text(user_text):
     answers.sort(key=lambda x: x[0], reverse=True)
     return answers[0][1]
 
+def classify_test_folder():
+    test_set_answers=[]
+
+    for language in languages:
+        text_files = os.listdir("test_data/" + language)
+        for file in text_files:
+            if file.endswith(".txt"):
+                with open(os.path.join("test_data/" + language + "/" + file), "r") as f:
+                    file_text = f.read()
+                    classification = classify_language(file_text)
+                    test_set_answers.append([language, classification])
+
+    return test_set_answers
