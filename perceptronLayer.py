@@ -89,14 +89,13 @@ def classify_language(user_text):
 def classify_test_folder():
     test_set_answers=[]
 
-    for language in languages:
-        text_files = os.listdir("test_data/" + language)
-        for file in text_files:
-            if file.endswith(".txt"):
-                with open(os.path.join("test_data/" + language + "/" + file), "r", encoding="utf-8") as f:
-                    file_text = f.read()
-                    classification = classify_language(file_text)
-                    test_set_answers.append([language, classification])
+    text_files = os.listdir("test_data/")
+    for file in text_files:
+        if file.endswith(".txt"):
+            with open(os.path.join("test_data/"+ file), "r", encoding="utf-8") as f:
+                file_text = f.read()
+                classification = classify_language(file_text)
+                test_set_answers.append([f.name, classification])
 
     return test_set_answers
 
@@ -120,7 +119,7 @@ while program_mode != "0":
     if program_mode == "1":
         answers = classify_test_folder()
         for answer in answers:
-            print(f"Język faktyczny: {answer[0]}, odpowiedź klasyfikatora: {answer[1]}")
+            print(f"Plik: {answer[0]}, odpowiedź klasyfikatora: {answer[1]}")
         input("Kliknij Enter by kontynuować...")
     elif program_mode == "2":
         user_text = input("Podaj tekst do klasyfikacji: ")
