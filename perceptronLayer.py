@@ -99,3 +99,25 @@ def classify_test_folder():
                     test_set_answers.append([language, classification])
 
     return test_set_answers
+
+program_mode = -1
+while program_mode != "0":
+    print("Wybierz opcje: ")
+    print("1- Klasyfikacja folderu testowego")
+    print("2- Klasyfikacja tekstu użytkownika")
+    print("0- Wyjdź")
+    program_mode = input("Wybór: ")
+    if program_mode == "1":
+        answers = classify_test_folder()
+        for answer in answers:
+            print(f"Język faktyczny: {answer[0]}, odpowiedź klasyfikatora: {answer[1]}")
+        for language in perceptron_dict:
+            perceptron_dict[language].reset()
+        input("Kliknij Enter by kontynuować...")
+    elif program_mode == "2":
+        user_text = input("Podaj tekst do klasyfikacji: ")
+        answer = classify_language(user_text)
+        print(f"Twoja klasyfikacja to język: {answer}")
+        for language in perceptron_dict:
+            perceptron_dict[language].reset()
+        input("Kliknij Enter by kontynuować...")
