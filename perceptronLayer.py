@@ -41,8 +41,8 @@ def get_letters_list(text):
     return letters_list
 
 languages = os.listdir("training_data")
-bias = float(input("Enter bias: "))
-alpha = float(input("Enter the learning rate (alpha): "))
+bias = float(input("Podaj próg: "))
+alpha = float(input("Podaj stałą uczącą (alpha): "))
 perceptron_dict = {}
 training_set = []
 
@@ -54,3 +54,15 @@ for language in languages:
             with open(os.path.join("training_data/" + language + "/" + file), "r") as f:
                 file_text = f.read()
                 training_set.append([get_letters_list(file_text),language])
+
+learncycles = int(input("Podaj liczbę epok: "))
+
+for i in range(learncycles):
+    for j in range(len(training_set)):
+        vector = training_set[j][0]
+        correct_language = training_set[j][1]
+        for language in perceptron_dict:
+            if language == correct_language:
+                perceptron_dict[language].learn(vector,1)
+            else:
+                perceptron_dict[language].learn(vector,0)
