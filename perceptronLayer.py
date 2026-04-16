@@ -100,11 +100,21 @@ def classify_test_folder():
 
     return test_set_answers
 
+def classify_user_file(file_name):
+    try:
+        with open(os.path.join(file_name), "r") as file:
+            file_text = file.read()
+            classification = classify_language(file_text)
+            return classification
+    except FileNotFoundError:
+        return -1
+
 program_mode = -1
 while program_mode != "0":
     print("Wybierz opcje: ")
     print("1- Klasyfikacja folderu testowego")
     print("2- Klasyfikacja tekstu użytkownika")
+    print("3- Klasyfikacja pojedynczego pliku użytkownika")
     print("0- Wyjdź")
     program_mode = input("Wybór: ")
     if program_mode == "1":
@@ -116,4 +126,12 @@ while program_mode != "0":
         user_text = input("Podaj tekst do klasyfikacji: ")
         answer = classify_language(user_text)
         print(f"Twoja klasyfikacja to język: {answer}")
+        input("Kliknij Enter by kontynuować...")
+    elif program_mode == "3":
+        user_file = input("Nazwę pliku do klasyfikacji: ")
+        answer = classify_user_file(user_file)
+        if answer != -1:
+            print(f"Twoja klasyfikacja to język: {answer}")
+        else:
+            print("Nie znaleziono pliku o podanej nazwie!!")
         input("Kliknij Enter by kontynuować...")
