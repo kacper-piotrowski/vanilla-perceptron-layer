@@ -61,7 +61,7 @@ for language in languages:
     text_files = os.listdir("training_data/" + language)
     for file in text_files:
         if file.endswith(".txt"):
-            with open(os.path.join("training_data/" + language + "/" + file), "r") as f:
+            with open(os.path.join("training_data/" + language + "/" + file), "r", encoding="utf-8") as f:
                 file_text = f.read()
                 training_set.append([get_letters_list(file_text),language])
 
@@ -93,7 +93,7 @@ def classify_test_folder():
         text_files = os.listdir("test_data/" + language)
         for file in text_files:
             if file.endswith(".txt"):
-                with open(os.path.join("test_data/" + language + "/" + file), "r") as f:
+                with open(os.path.join("test_data/" + language + "/" + file), "r", encoding="utf-8") as f:
                     file_text = f.read()
                     classification = classify_language(file_text)
                     test_set_answers.append([language, classification])
@@ -102,7 +102,7 @@ def classify_test_folder():
 
 def classify_user_file(file_name):
     try:
-        with open(os.path.join(file_name), "r") as file:
+        with open(os.path.join(file_name), "r" , encoding="utf-8") as file:
             file_text = file.read()
             classification = classify_language(file_text)
             return classification
