@@ -1,4 +1,6 @@
 import os
+from random import shuffle
+
 
 class Perceptron:
     def __init__(self, weights_length, bias, alpha,beta = None):
@@ -58,6 +60,7 @@ for language in languages:
 learncycles = int(input("Podaj liczbę epok: "))
 
 for i in range(learncycles):
+    shuffle(training_set)
     for j in range(len(training_set)):
         vector = training_set[j][0]
         correct_language = training_set[j][1]
