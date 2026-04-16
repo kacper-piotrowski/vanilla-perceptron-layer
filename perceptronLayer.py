@@ -111,13 +111,9 @@ while program_mode != "0":
         answers = classify_test_folder()
         for answer in answers:
             print(f"Język faktyczny: {answer[0]}, odpowiedź klasyfikatora: {answer[1]}")
-        for language in perceptron_dict:
-            perceptron_dict[language].reset()
         input("Kliknij Enter by kontynuować...")
     elif program_mode == "2":
         user_text = input("Podaj tekst do klasyfikacji: ")
         answer = classify_language(user_text)
         print(f"Twoja klasyfikacja to język: {answer}")
-        for language in perceptron_dict:
-            perceptron_dict[language].reset()
         input("Kliknij Enter by kontynuować...")
