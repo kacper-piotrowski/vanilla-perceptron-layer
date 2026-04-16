@@ -4,7 +4,7 @@ def get_letters_list(text):
     total = 0
 
     for i in range(len(text)):
-        if text[i].isalpha():
+        if 97 <= ord(text[i]) <= 122:
             total += 1
             letters_list[ord(text[i])-97] = letters_list[ord(text[i])-97] + 1
 
