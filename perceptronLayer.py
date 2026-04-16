@@ -1,3 +1,5 @@
+import os
+
 class Perceptron:
     def __init__(self, weights_length, bias, alpha,beta = None):
         self.weights_length = weights_length
@@ -38,10 +40,17 @@ def get_letters_list(text):
 
     return letters_list
 
-languages = ['polish', 'english', 'french', 'german', 'spanish']
+languages = os.listdir("training_data")
 bias = float(input("Enter bias: "))
 alpha = float(input("Enter the learning rate (alpha): "))
 perceptron_dict = {}
+training_set = []
 
 for language in languages:
     perceptron_dict[language] = Perceptron(26,bias,alpha)
+    text_files = os.listdir("training_data/" + language)
+    for file in text_files:
+        if file.endswith(".txt"):
+            with open(os.path.join("training_data/" + language + "/" + file), "r") as f:
+                file_text = f.read()
+                training_set.append([get_letters_list(file_text),language])
