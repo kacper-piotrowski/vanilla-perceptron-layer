@@ -37,3 +37,11 @@ def get_letters_list(text):
         letters_list[i] = letters_list[i]/total
 
     return letters_list
+
+languages = ['polish', 'english', 'french', 'german', 'spanish']
+bias = float(input("Enter bias: "))
+alpha = float(input("Enter the learning rate (alpha): "))
+perceptron_dict = {}
+
+for language in languages:
+    perceptron_dict[language] = Perceptron(26,bias,alpha)
