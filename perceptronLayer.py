@@ -16,6 +16,12 @@ class Perceptron:
             net += self.weights[i] * x_vector[i]
         net -= self.bias
         return 1 if net > 0 else 0
+    def classify_net(self, x_vector):
+        net = 0
+        for i in range(len(self.weights)):
+            net += self.weights[i] * x_vector[i]
+        net -= self.bias
+        return net
     def learn(self, x_vector, d):
         updated_weights = self.weights.copy()
         dy = (d-self.classify(x_vector))
@@ -41,6 +47,8 @@ def get_letters_list(text):
         letters_list[i] = letters_list[i]/total
 
     return letters_list
+
+
 
 languages = os.listdir("training_data")
 bias = float(input("Podaj próg: "))
@@ -69,3 +77,12 @@ for i in range(learncycles):
                 perceptron_dict[language].learn(vector,1)
             else:
                 perceptron_dict[language].learn(vector,0)
+
+def classify_user_text(user_text):
+    user_vector = get_letters_list(user_text)
+    answers = []
+    for language in perceptron_dict:
+        answers.append([perceptron_dict[language].classify_net(user_vector),language])
+    answers.sort(key=lambda x: x[0], reverse=True)
+    return answers[0][1]
+
