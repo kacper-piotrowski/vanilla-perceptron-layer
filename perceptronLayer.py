@@ -1,7 +1,6 @@
 import os
 from random import shuffle
 
-
 class Perceptron:
     def __init__(self, weights_length, bias, alpha,beta = None):
         self.weights_length = weights_length
@@ -49,11 +48,9 @@ def get_letters_list(text):
 
     return letters_list
 
-
-
 languages = os.listdir("training_data")
-bias = float(input("Podaj próg: "))
-alpha = float(input("Podaj stałą uczącą (alpha): "))
+bias = float(input("Enter bias: "))
+alpha = float(input("Enter the learning rate (alpha): "))
 perceptron_dict = {}
 training_set = []
 
@@ -66,7 +63,7 @@ for language in languages:
                 file_text = f.read()
                 training_set.append([get_letters_list(file_text),language])
 
-learncycles = int(input("Podaj liczbę epok: "))
+learncycles = int(input("Enter the number of epochs: "))
 
 for i in range(learncycles):
     shuffle(training_set)
@@ -111,27 +108,27 @@ def classify_user_file(file_name):
 
 program_mode = -1
 while program_mode != "0":
-    print("Wybierz opcje: ")
-    print("1- Klasyfikacja folderu testowego")
-    print("2- Klasyfikacja tekstu użytkownika")
-    print("3- Klasyfikacja pojedynczego pliku użytkownika")
-    print("0- Wyjdź")
-    program_mode = input("Wybór: ")
+    print("Choose an option: ")
+    print("1- Classify the test folder")
+    print("2- Classify a user text input")
+    print("3- Classify a single user file")
+    print("0- Exit")
+    program_mode = input("Choice: ")
     if program_mode == "1":
         answers = classify_test_folder()
         for answer in answers:
-            print(f"Plik: {answer[0]}, odpowiedź klasyfikatora: {answer[1]}")
-        input("Kliknij Enter by kontynuować...")
+            print(f"File: {answer[0]}, classification: {answer[1]}")
+        input("Press Enter to continue...")
     elif program_mode == "2":
-        user_text = input("Podaj tekst do klasyfikacji: ")
+        user_text = input("Text: ")
         answer = classify_language(user_text)
-        print(f"Twoja klasyfikacja to język: {answer}")
-        input("Kliknij Enter by kontynuować...")
+        print(f"Your classification is: {answer}")
+        input("Press Enter to continue...")
     elif program_mode == "3":
-        user_file = input("Nazwę pliku do klasyfikacji: ")
+        user_file = input("Enter the file name: ")
         answer = classify_user_file(user_file)
         if answer != -1:
-            print(f"Twoja klasyfikacja to język: {answer}")
+            print(f"Your classification is: {answer}")
         else:
-            print("Nie znaleziono pliku o podanej nazwie!!")
-        input("Kliknij Enter by kontynuować...")
+            print("File not found!")
+        input("Press Enter to continue...")
